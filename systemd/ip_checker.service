@@ -3,4 +3,4 @@ Description=Run ip-checker
 
 [Service]
 EnvironmentFile=/path/to/secure/env_file
-ExecStart=/path/to/your/script.py
+ExecStart=/path/to/your/executable

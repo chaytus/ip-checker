@@ -1,6 +1,6 @@
 [project]
-name = "cloudflare_dns_updater"
-description = "Default template for PDM package"
+name = "ip_checker"
+description = "Check public IP address against Cloudflare DNS records."
 authors = [
     {name = "Brady Fry", email = "bradyafry@gmail.com"},
 ]
@@ -8,14 +8,24 @@ dynamic = ["version"]
 dependencies = [
     "requests>=2.31.0",
     "CloudFlare>=2.16.0",
-    "dotenv>=0.0.5",
+    "dnspython>=2.4.2",
+    "loguru>=0.7.2",
+    "python-dotenv>=1.0.0",
+    "click>=8.1.7",
 ]
 requires-python = "==3.11.*"
 readme = "README.md"
 license = {text = "MIT"}
 
+[project.optional-dependencies]
+app = [
+    "nuitka>=1.9.7",
+]
 [tool.pdm]
-package-type = "application"
+distribution = "false"
+
+[tool.pdm.scripts]
+compile = "python -m nuitka --follow-imports -o ip_checker --remove-output src/main.py"
 
 [tool.pdm.version]
 source = "file"
@@ -25,6 +35,7 @@ path = "src/configs/__init__.py"
 dev = [
     "pre-commit>=3.6.0",
     "ruff>=0.1.13",
+    "pytest>=7.4.4",
 ]
 [tool.ruff]
 line-length = 100
